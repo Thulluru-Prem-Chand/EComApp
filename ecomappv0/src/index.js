@@ -6,29 +6,33 @@
 //npm install --save-dev @fortawesome/fontawesome-free
 
 
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
-import ClassComponent from './ClassComponent';
-import reportWebVitals from './reportWebVitals';
-import AddUpdateDelete from './AddUpdateDelete';
-import AddProduct from './AddProduct';
-import ProductList from './ProductList';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import $ from 'jquery';
-import Popper from 'popper.js';
-import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./Layout";
-import Cart from "./Cart";
-import ProductDescription from "./ProductDescription";
-import NoPage from "./NoPage";
-import Login from "./Login";
-import Logout from "./Logout";
-import Footer from "./Footer";
 
-import Signup from "./Signup";
+// import ClassComponent from './components/ClassComponent';
+// import AddUpdateDelete from './components/AddUpdateDelete';
+
+import reportWebVitals from './components/reportWebVitals';
+import AddProduct from './components/AddProduct';
+import Search from './components/Search';
+import Layout from "./components/Layout";
+import Cart from "./components/Cart";
+import ProductDescription from "./components/ProductDescription";
+import NoPage from "./components/NoPage";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Footer from "./components/Footer";
+import Product from "./components/Product";
+import Signup from "./components/Signup";
+import Report from "./components/Report";
+import EditProduct from "./components/EditProduct";
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+// import $ from 'jquery';
+// import Popper from 'popper.js';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
@@ -41,9 +45,12 @@ root.render(
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
           <Route path="logout" element={<Logout />} />
+          <Route path="product" element={<Product />} />
           <Route path="add_product" element={<AddProduct />} />
-          <Route path="product_list" element={<ProductList />} />
+          <Route path="edit_product" element={<EditProduct />} />
+          <Route path="search" element={<Search />} />
           <Route path="cart" element={<Cart />} />
+          <Route path="order" element={<Report />} />
           <Route path="product_description" element={<ProductDescription />} />
           <Route path="*" element={<NoPage />} />
         </Route>

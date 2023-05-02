@@ -15,16 +15,19 @@ const Layout = () => {
                                 <Link className="nav-link" aria-current="page" to="/login">Login</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/add_product">Add Product</Link>
+                                <Link className="nav-link" aria-current="page" to="/product">Product</Link>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/product_list">Search</Link>
+                                <Link className="nav-link" aria-current="page" to="/search">Search</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/cart">Cart</Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" aria-current="page" to="/logout">Logout</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" aria-current="page" to="/order">Report</Link>
                             </li>
                         </ul>
                     </div>

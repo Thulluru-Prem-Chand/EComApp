@@ -1,5 +1,7 @@
+// Almost out of storage … If you run out, you can't create or edit files, send or receive emails on Gmail, or back up to Google Photos.
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 class Product extends React.Component {
     constructor(props) {
@@ -9,121 +11,131 @@ class Product extends React.Component {
             products: [],
             productName: "",
             productPrice: 0,
-            quantity: 0
+            finalPrice: 0,
+            quantity: 0,
+            cart: 0,
+            id: 0,
+            product_id: 0,
+            searchProduct: "",
+
         };
+        // localStorage.removeItem("user_id");
+        // window.location.href="login";
+        console.log(localStorage.getItem("user_id"))
+        if (localStorage.getItem("user_id") == null) {
+            window.location.href = "login";
+        }
+        else {
+            this.showProduct();
+        }
         // let sw = [1, 2, 3, 4, 5];
         // sw.map((a) => (console.log(a)));
     }
 
+    showProduct = (event) => {
+        fetch("http://localhost:8081/get_product_list")
+            .then(
+                res => (res.json())
+            )
+            .then(
+                (res) => {
+
+                    console.log(res);
+                    const updatedValue = { products: res };
+                    const formatter = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 });
+
+                    // for (const item of res) {
+                    //     // totalItems += item.count;
+                    //     // console.log(item.count);
+                    //     // console.log(item.product_price);
+                    //     // total+=item.product_price*item.count;
+                    //     item.final_price = item.product_price - ((item.product_price * item.discount) / 100);
+                    // }
+                    // console.log("Final price: " + this.state.finalPrice);
+
+                    <div class="text-center">
+                        <button className='btn btn-dark' onClick={this.gotoaddproduct} >Add Product</button>
+                    </div>
+                    {/* 
+            <div className='row'>
+                { */}
+                    <table class="table">
+
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Product Image</th>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Product Price</th>
+                                <th scope="col">Buttons</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {
+                                this.state.products.map(
+                                    (product, i) => (
+
+                                        <tr>
+                                            {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
+                                            <th scope="row">{product.product_id}</th>
+
+                                            <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
+                                            <td> <h4 className='text-capitalize'>{product.product_name}</h4></td>
+                                            <td><p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p></td>
+                                            <td>
+                                                <button className='btn btn-dark' value={product.product_id} onClick={this.ok}>Edit</button>
+                                                <br></br>
+                                                <button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></td>
+                                            {/* </div> */}
 
 
-    changeColor = () => {
-        console.log("Prev val:" + this.state.brand);
+                                        </tr>
 
-        if (this.state.brand == "Ford") {
-            console.log("In If condition");
-            const updatedValue = { brand: "Audi" };
-            this.setState(updatedValue);
-            console.log("After updating val:" + this.state.brand);
-        } else {
-            console.log("In else condition");
-            const updatedValue = { brand: "Ford" };
-            this.setState(updatedValue);
-        }
+                                    )
+                                )
+                            }
 
-    }
 
-    upCounter = () => {
-        let sw = this.state.counter;
-        sw++;
-        const updatedValue = { counter: sw };
-        this.setState(updatedValue);
-    }
+                        </tbody>
 
-    downCounter = () => {
-        let sw = this.state.counter;
-        sw--;
-        const updatedValue = { counter: sw };
-        this.setState(updatedValue);
-    }
 
-    updateLabel = (event) => {
-        let sw = event.target.value;
-        const updatedValue = { text: sw };
-        this.setState(updatedValue);
-    }
+                    </table>
+
+
+                    this.setState(updatedValue);
 
 
 
-    updateProductName = (event) => {
-        // console.log("this.state.products");
-        // console.log(this.state.products);
-
-        let sw = event.target.value;
-        const updatedValue = { productName: sw };
-        this.setState(updatedValue);
-
-        // console.log("this.state.productName");
-        // console.log(this.state.productName);
-
-
-
-    }
-    updateProductPrice = (event) => {
-        // console.log("this.state.products");
-        // console.log(this.state.products);
-
-        let sw = event.target.value;
-        const updatedValue = { productPrice: sw };
-        this.setState(updatedValue);
-
-        // console.log("this.state.productName");
-        // console.log(this.state.productName);
-
-
-
-    }
-    updateQuantity = (event) => {
-        // console.log("this.state.products");
-        // console.log(this.state.products);
-
-        let sw = event.target.value;
-        const updatedValue = { quantity: sw };
-        this.setState(updatedValue);
-
-        // console.log("this.state.productName");
-        // console.log(this.state.productName);
-
-
+                }
+            )
 
     }
 
-    addProduct = (event) => {
+    addcart = (event) => {
         console.log("okay");
-        let products = this.state.products;
-        products.push(this.state.productName);
-        products.push(this.state.productPrice);
-        products.push(this.state.quantity);
-
-        const updatedValue = { products: products };
+        let cart = event.target.value;
+        console.log(event.target.value);
+        // cart.push(this.state.product_id);
+        const updatedValue = { cart: cart };
         this.setState(updatedValue);
 
         console.log("this.state.products");
-        console.log(this.state.products);
+        console.log(this.state.cart);
 
 
         let postData = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
+                user_id: localStorage.getItem("user_id"),
+                product_id: event.target.value
 
-                product_name: this.state.productName,
-                product_price: this.state.productPrice,
-                quantity: this.state.quantity
             })
         };
-
-        fetch('http://127.0.0.1:8081/insert_product', postData)
+console.log("postdata");
+           console.log(postData);
+        fetch('http://localhost:8081/add_cart', postData)
             .then(
                 res => res.json()
             )
@@ -131,67 +143,151 @@ class Product extends React.Component {
                 res => {
                     console.log(res)
                     if (res.success) {
-                       alert("Product successfully added!!");
+                        this.setState({ loggedIn: true });
+                        this.setState({ username: res.user_details.first_name });
 
                     }
                     else {
-                        alert("Failed to add the Product!!");
+                        this.setState({ loggedIn: false });
+                        this.setState({ error: "Wrong credentials" });
+
                     }
                 }
             );
-
-
-
     }
-
 
     deleteProduct = (event) => {
         let index = event.target.value;
         console.log("index");
         console.log(index);
+
+        let postData = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                product_id: event.target.value
+            })
+        };
+
+        fetch("http://localhost:8081/delete_product", postData)
+            .then(
+                res => (res.json())
+            )
+            .then(
+                (res) => {
+                    console.log(res);
+                    if (res.success) {
+                        this.showProduct();
+                    }
+                }
+            )
+    }
+
+
+
+    searchProduct = (event) => {
+
+        let postData = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                search: this.state.searchProduct
+            })
+        };
+
+        fetch("http://localhost:8081/search_product", postData)
+            .then(
+                res => (res.json())
+            )
+            .then(
+                (res) => {
+                    console.log(res);
+                    const updatedValue = { products: res };
+                    this.setState(updatedValue);
+                }
+            )
+    }
+
+    updateSearchProduct = (event) => {
+
+        let sw = event.target.value;
+        const updatedValue = { searchProduct: sw };
+        this.setState(updatedValue);
+    }
+    gotoproductDescription = (event) => {
+        window.location.href = "product_description?product_id=" + event.target.getAttribute('product_id');
+
+
+    }
+    gotoaddproduct = (event) => {
+        window.location.href = "add_product";
+
+
+    }
+
+    gotoeditproduct = (event) => {
+        window.location.href = "edit_product?product_id=" + event.target.getAttribute('product_id');;
+
+
     }
 
 
 
     render() {
-        let flag = true;
         let sw;
+        const formatter = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 });
         sw = <div>
 
-            <h1> Add Products:</h1>
-            <div className="row">
-                <div className="col-lg-4 ">
-                </div>
-                <div className="col-lg-4 ">
-                    <div className="mb-3 mt-3">
-                        <label for="product_name" className="form-label">Product Name:</label>
-                        <input type="text" value={this.state.productName} onChange={this.updateProductName} className="form-control" id="product_name" placeholder="Enter Product Name" name="product_name" />
-                    </div>
-                    <div className="mb-3 mt-3">
-                        <label for="product_price" className="form-label">Product Price:</label>
-                        <input type="text" value={this.state.productPrice} onChange={this.updateProductPrice} className="form-control" id="product_price" placeholder="Enter Product Price" name="product_price" />
-                    </div>
-                    <div className="mb-3 mt-3">
-                        <label for="product_quantity" className="form-label">Product Quantity:</label>
-                        <input type="number" value={this.state.quantity} onChange={this.updateQuantity} className="form-control" id="product_quantity" placeholder="Enter Product Quantity" name="product_quantity" />
-                    </div>
-                    <button onClick={this.addProduct} className="btn btn-primary">Add Product</button>
-                </div>
+            {/* <h1> Products List: </h1> */}
+            <br></br>
+            <div class="text-center">
+                <button className='btn btn-dark' onClick={this.gotoaddproduct} >Add Product</button>
             </div>
+            {/* 
+            <div className='row'>
+                { */}
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Product Image</th>
+                        <th scope="col">Product Name</th>
+                        <th scope="col">Product Price</th>
+                        <th scope="col">Buttons</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {
+                        this.state.products.map(
+                            (product, i) => (
+
+                                <tr>
+                                    {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
+                                    <th scope="row">{i+1}</th>
+
+                                    <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
+                                    <td> <h4 className='text-capitalize'>{product.product_name}</h4></td>
+                                    <td><p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p></td>
+                                    <td>
+                                        <button className='btn btn-dark' value={product.product_id} product_id={product.product_id} onClick={this.gotoeditproduct}>Edit</button>
+                                        <br></br>
+                                        <button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></td>
+                                    {/* </div> */}
 
 
-            {/* <label htmlFor="productName">Product Name:</label>
-            <input id="productName" type="text" value={this.state.productName} onChange={this.updateProductName} />
-            <label htmlFor="productPrice">Product Price:</label>
-            <input id="productPrice" type="text" value={this.state.productPrice} onChange={this.updateProductPrice} />
-            <label htmlFor="quantity">Quantity:</label>
-            <input id="quantity" type="text" value={this.state.quantity} onChange={this.updateQuantity} /> */}
+                                </tr>
 
-            {/* <button onClick={this.addProduct}> Add Product</button> */}
+                            )
+                        )
+                    }
 
 
+                </tbody>
 
 
+            </table>
         </div>;
 
 
