@@ -14,7 +14,7 @@ import './index.css';
 // import ClassComponent from './components/ClassComponent';
 // import AddUpdateDelete from './components/AddUpdateDelete';
 
-import reportWebVitals from './components/reportWebVitals';
+import reportWebVitals from './reportWebVitals';
 import AddProduct from './components/AddProduct';
 import Search from './components/Search';
 import Layout from "./components/Layout";
@@ -34,6 +34,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import Popper from 'popper.js';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import NavScrollExample from "./components/NavScrollExample";
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -50,9 +51,10 @@ root.render(
           <Route path="edit_product" element={<EditProduct />} />
           <Route path="search" element={<Search />} />
           <Route path="cart" element={<Cart />} />
-          <Route path="order" element={<Report />} />
+          <Route path="report" element={<Report />} />
           <Route path="product_description" element={<ProductDescription />} />
           <Route path="*" element={<NoPage />} />
+          <Route path="eg" element={<NavScrollExample/>} />
         </Route>
       </Routes>
       <Footer />

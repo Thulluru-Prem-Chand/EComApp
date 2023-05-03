@@ -1,38 +1,37 @@
-.App {
-  text-align: center;
+/* Nav Bar CSS */
+
+.navbar {
+  border-radius: 15px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.377);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body{
+  padding: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+Footer {
+  border-radius: 10px;
+  padding: 10px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.nav-link.active {
+  color: #fff !important;
+  background: black !important;
+}
+.navbar-custom .nav-item.active{
+  color: red;
+}
+
+.logpage{
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 30px;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logpage .card {
+  padding: 20px;
+  border-radius: 25px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }

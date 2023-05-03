@@ -265,13 +265,11 @@ class Signup extends React.Component {
     render() {
         let flag = true;
         let sw;
-        sw = <div>
-
-            <h1>Sign Up!</h1>
-            <div className="row">
-                <div className="col-lg-4 ">
-                </div>
-                <div className="col-lg-4 ">
+        sw = <div className="row logpage">
+                <div className="col-md-4 card">
+                    <div className='text-center'>
+                        <h1>Sign Up!</h1>
+                    </div>
                     <div className="mb-3 mt-3">
                         <label for="first_name" className="form-label">First Name:</label>
                         <input type="text" value={this.state.firstName} onChange={this.updateFirstName} className="form-control" id="first_name" placeholder="Enter First Name" name="first_name" />
@@ -314,7 +312,6 @@ class Signup extends React.Component {
                     
                     <button onClick={this.addUser} className="btn btn-primary">Sign Up</button>
                 </div>
-            </div>
 
 
             {/* <label htmlFor="productName">Product Name:</label>

@@ -50,7 +50,7 @@ class ClassComponent extends React.Component {
                     if (res.success) {
                         this.setState({ loggedIn: true });
                         this.setState({ username: res.user_details.first_name });
-                        window.location.href="product_list";
+                        window.location.href="search";
                         // localStorage.setItem("user_id", res.user_details.first_name);
                         localStorage.setItem("user_id", res.user_details[0].id);
                         console.log(res.user_details[0])
@@ -85,26 +85,20 @@ class ClassComponent extends React.Component {
         let flag = true;
         let sw;
         if (!this.state.loggedIn) {
-            sw = <div>
-
-                <div className="row">
-                <div className="col-lg-4 ">
-                    </div>
-                    <div className="col-lg-4 ">
-                        <div className="mb-3 mt-3">
-                            <label for="email" className="form-label">Email:</label>
-                            <input type="email" value={this.state.username} onChange={this.updateUserName} className="form-control" id="email" placeholder="Enter email" name="email" />
-                        </div>
-                        <div className="mb-3">
-                            <label for="pwd" className="form-label">Password:</label>
-                            <input type="password" value={this.state.password} onChange={this.updatePassword} className="form-control" id="pwd" placeholder="Enter password" name="pswd" />
-                        </div>
-                        <button onClick={this.login} className="btn btn-primary">Login</button>       <pre></pre>
-                  
-                        <button onClick={this.gotoSignUp} className="btn btn-primary">Sign up</button>
-                    </div>
-                </div>               
-            </div >;
+            sw = <div className="row logpage">
+                        <div className="col-md-4 card">
+                            <div className="mb-3 mt-3">
+                                <label for="email" className="form-label">Email:</label>
+                                <input type="email" value={this.state.username} onChange={this.updateUserName} className="form-control" id="email" placeholder="Enter email" name="email" />
+                            </div>
+                            <div className="mb-3">
+                                <label for="pwd" className="form-label">Password:</label>
+                                <input type="password" value={this.state.password} onChange={this.updatePassword} className="form-control" id="pwd" placeholder="Enter password" name="pswd" />
+                            </div>
+                            <button onClick={this.login} className="btn btn-primary">Login</button><p></p>
+                            <button onClick={this.gotoSignUp} className="btn btn-primary">Sign up</button>  
+                    </div>          
+            </div>;
         }
        
         return (sw);
