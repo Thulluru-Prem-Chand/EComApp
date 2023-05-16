@@ -199,10 +199,11 @@ class EditProduct extends React.Component {
                     console.log(res)
                     if (res.success) {
                         alert("Product successfully updated!!");
+                        window.location.href="product";
 
                     }
                     else {
-                        alert("Failed to add the Product!!");
+                        alert("Failed to add the Product!, Please Try Again later");
                     }
                 }
             );

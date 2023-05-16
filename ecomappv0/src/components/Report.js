@@ -1,7 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { useState } from 'react';
+
+// import dateFormat from 'dateformat';
+import Moment from 'moment';
+
+import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 class Report extends React.Component {
+    
     constructor(props) {
         // It will call constructor method in Parent Class
         super(props);
@@ -20,7 +28,17 @@ class Report extends React.Component {
             endDate: ""
                 };
         this.render();
+
+        // localStorage.removeItem("user_id");
+        // window.location.href="login";
+        console.log(localStorage.getItem("user_id"));
+        if (localStorage.getItem("user_id") == null) {
+            window.location.href = "login";
+        }
     }
+
+    
+
 
     updateStartDate = (event) => {
         // console.log("this.state.products");
@@ -144,90 +162,77 @@ class Report extends React.Component {
 
     }
 
+    
 
     render() {
         let sw;
         sw = <div>
-
-            <h1>Report:</h1>
-            <div className="row">
-                <div className="col-lg-4 ">
+                <div className='row logpage'>
+                    <div className="col-md-4 card">
+                        <h2 className='text-center'>Report</h2>
+                        <hr></hr>
+                        <div className="mb-3 mt-3">
+                            <label for="start_date" className="form-label"><b>From</b></label>
+                            <input type="date" value={this.state.startDate} onChange={this.updateStartDate} className="form-control" id="start_date" name="start_date"  placeholder='Start Date'/>
+                        </div>
+                        <div className="mb-3 mt-3">
+                            <label for="product_price" className="form-label"><b>To</b></label>
+                            <input type="date" value={this.state.endDate} onChange={this.updateEndDate} className="form-control" id="product_price" name="product_price"  />
+                        </div>
+                        {/* <div className="mb-3 mt-3">
+                            <label for="discount" className="form-label"><b>Customer Name</b></label>
+                            <input type="text" value={this.state.Name} onChange={this.updateName} className="form-control" id="discount" placeholder="Enter Customer name/number" name="discount" />
+                        </div> */}
+                        <button className='btn btn-primary' onClick={this.report}>Show Report</button>
+                    </div>   
                 </div>
-                <div className="col-lg-4 ">
-                    <div className="mb-3 mt-3">
-                        <label for="start_date" className="form-label">Please select start date:</label>
-                        <input type="date" value={this.state.startDate} onChange={this.updateStartDate} className="form-control" id="start_date" name="start_date" />
+
+                {
+                    <div className='row m-2 text-center p-2 card'>
+                        <Table>
+                            <Thead>
+                                <Tr>
+                                    <Th>Order No</Th>
+                                    <Th>Customer Id</Th>
+                                    <Th>Name</Th>
+                                    <Th>Phone</Th>
+                                    <Th>Total</Th>
+                                    <Th>Order Status</Th>
+                                    <Th>Date</Th>
+                                    <Th>Time</Th>
+                                </Tr>
+                            </Thead>
+                            <Tbody>
+                                {
+                                    this.state.orders.map(
+                                        (order, i) => (
+                                            <Tr >
+                                                <Td>{order.order_id}</Td>
+                                                <Td>{order.user_id}</Td>
+                                                <Td>{order.first_name} {order.last_name}</Td>
+                                                <Td>{order.mobile_number}</Td>
+                                                <Td><p>Rs. {order.total_payable} /-</p></Td>
+                                                <Td>
+                                                    <select className="form-select" value={this.state.order_status} order_id={order.order_id} onChange={this.ChangeOrderStatus} type="text">
+                                                        <option value="pending" selected>pending</option>
+                                                        <option value="dispatched">dispatched</option>
+                                                        <option value="delivered">delivered</option>
+                                                    </select>
+                                                </Td>
+                                                <Td>{Moment(order.date).format("Do MMMM YYYY")}</Td>
+                                                <Td>{Moment(order.date).format("h:mm A")}</Td>
+                                            </Tr>
+                                        )
+                                    )
+                                }
+                            </Tbody>
+                        </Table>
+
+		
                     </div>
-                    <div className="mb-3 mt-3">
-                        <label for="product_price" className="form-label">Please select end date:</label>
-                        <input type="date" value={this.state.endDate} onChange={this.updateEndDate} className="form-control" id="product_price" name="product_price" />
-                    </div>
-                    <div className="mb-3 mt-3">
-                        <label for="discount" className="form-label">Please enter customer Name/Number:</label>
-                        <input type="text" value={this.state.Name} onChange={this.updateName} className="form-control" id="discount" placeholder="Enter Customer name/number" name="discount" />
-                    </div>
-                </div>
-            </div>
+                }
 
-
-
-
-            <br></br>
-            <div class="text-center">
-                <button className='btn btn-dark' onClick={this.report}>show report</button>
-            </div>
-            {/* 
-            <div className='row'>
-                { */}
-            <table class="table">
-
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Phone</th>
-                        <th scope="col">Total</th>
-                        <th scope="col">Order State</th>
-                        <th scope="col">Date</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        this.state.orders.map(
-                            (order, i) => (
-
-
-                                <tr>
-                                    {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
-                                    <th scope="row">{order.user_id}</th>
-                                    <td> <h4 className='text-capitalize'>{this.state.Name}</h4></td>
-                                    <td><h4>{order.mobile_number}</h4></td>
-                                    <td><p>Rs. {order.total_payable} /-</p></td>
-                                    <td>
-                                    <select className="form-select" value={this.state.order_status} order_id={order.order_id} onChange={this.ChangeOrderStatus} type="text">
-                                        <option selected>Order State</option>
-                                        <option value="pending" >pending</option>
-                                        <option value="dispatched">dispatched</option>
-                                        <option value="delivered">delivered</option>
-                                    </select></td>
-                                    <td><h4 className='date'>{order.date}</h4></td>
-
-                                    {/* </div> */}
-
-
-                                </tr>
-                            )
-                        )
-                    }
-
-
-                </tbody>
-
-
-            </table>
-
-
-        </div>;
+            </div>;
 
         return (sw);
     }

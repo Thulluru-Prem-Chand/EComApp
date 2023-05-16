@@ -244,12 +244,9 @@ let finalprice=this.state.productPrice-(this.state.productPrice*this.state.disco
         let flag = true;
         let sw;
         sw = <div>
-
-            <h1> Add Products:</h1>
-            <div className="row">
-                <div className="col-lg-4 ">
-                </div>
-                <div className="col-lg-4 ">
+            <div className="row addcard">
+                <h1> Add Products:</h1>
+                <div className="col-lg-4 card">
                     <div className="mb-3 mt-3">
                         <label for="product_name" className="form-label">Product Name:</label>
                         <input type="text" value={this.state.productName} onChange={this.updateProductName} className="form-control" id="product_name" placeholder="Enter Product Name" name="product_name" />

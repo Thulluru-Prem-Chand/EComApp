@@ -28,6 +28,7 @@ function NavScrollExample() {
             <Nav.Link href="/cart">Cart</Nav.Link>
             <Nav.Link href="/logout">Logout</Nav.Link>
             <Nav.Link href="/report">Report</Nav.Link>
+            <Nav.Link href="/Ordpage">Orders</Nav.Link>
           </Nav>
           <Form className="d-flex">
             <Form.Control

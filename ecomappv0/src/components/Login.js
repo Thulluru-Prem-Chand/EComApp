@@ -58,7 +58,8 @@ class ClassComponent extends React.Component {
                     else {
                         this.setState({ loggedIn: false });
                         this.setState({ error: "Wrong credentials" });
-                        window.location.href="Nopage";
+                        alert("Invalid User Credentials")
+                        window.location.href="login";
 
                     }
                 }
@@ -89,11 +90,11 @@ class ClassComponent extends React.Component {
                         <div className="col-md-4 card">
                             <div className="mb-3 mt-3">
                                 <label for="email" className="form-label">Email:</label>
-                                <input type="email" value={this.state.username} onChange={this.updateUserName} className="form-control" id="email" placeholder="Enter email" name="email" />
+                                <input type="email" value={this.state.username} onChange={this.updateUserName} className="form-control" id="email" placeholder="Enter email" name="email" required="true"/>
                             </div>
                             <div className="mb-3">
                                 <label for="pwd" className="form-label">Password:</label>
-                                <input type="password" value={this.state.password} onChange={this.updatePassword} className="form-control" id="pwd" placeholder="Enter password" name="pswd" />
+                                <input type="password" value={this.state.password} onChange={this.updatePassword} className="form-control" id="pwd" placeholder="Enter password" name="pswd" required="true"/>
                             </div>
                             <button onClick={this.login} className="btn btn-primary">Login</button><p></p>
                             <button onClick={this.gotoSignUp} className="btn btn-primary">Sign up</button>  

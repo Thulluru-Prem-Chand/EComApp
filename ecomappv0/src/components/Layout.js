@@ -14,12 +14,38 @@ import '../App.css'
 
 
 const Layout = () => {
+
+    function IslogIn(){
+        console.log(localStorage.getItem("user_id"))
+        if (localStorage.getItem("user_id") == null) {
+            return (<Nav.Link href="/login">Login</Nav.Link>);
+        }
+        else {
+            return(<Nav.Link href="/logout">Logout</Nav.Link>);
+        }
+    }
+
+    function IsAdmin(){
+        console.log(localStorage.getItem("user_id"))
+        if (localStorage.getItem("user_id") == 6) {
+            return (<>
+                <Nav.Link href="/product">Product</Nav.Link>
+                <Nav.Link href="/report">Report</Nav.Link>
+            </>);
+        }
+        else {
+            return(<Nav.Link href="/Ordpage">Orders</Nav.Link>);
+        }
+    }
+
+
+
     return (
         <>
         <Navbar bg="dark" variant="dark" expand='lg' sticky="top">
-            <Container fluid>
+            <Container fluid >
                 <MDBIcon color='secondary' icon='gem' className='me-3' />
-                <Navbar.Brand href="#">TPC Tech Store</Navbar.Brand>
+                <Navbar.Brand href="/" >TPC Tech Store</Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                 <Nav
@@ -30,11 +56,11 @@ const Layout = () => {
                     navbarScroll
                 >
                     <Nav.Link href="/search">Home</Nav.Link>
-                    <Nav.Link href="/login">Login</Nav.Link>
-                    <Nav.Link href="/product">Product</Nav.Link>
                     <Nav.Link href="/cart">Cart</Nav.Link>
-                    <Nav.Link href="/logout">Logout</Nav.Link>
-                    <Nav.Link href="/report">Report</Nav.Link>
+                    <IsAdmin/>
+                    <IslogIn/>
+                    
+                    
                 </Nav>
                 {/* <Form className="d-flex">
                     <Form.Control

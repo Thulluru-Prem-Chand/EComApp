@@ -1,7 +1,14 @@
 // Almost out of storage … If you run out, you can't create or edit files, send or receive emails on Gmail, or back up to Google Photos.
+//npm install react-icons --save
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FaPlus } from 'react-icons/fa';
+
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 
 class Product extends React.Component {
     constructor(props) {
@@ -77,7 +84,6 @@ class Product extends React.Component {
                                     (product, i) => (
 
                                         <tr>
-                                            {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
                                             <th scope="row">{product.product_id}</th>
 
                                             <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
@@ -87,7 +93,7 @@ class Product extends React.Component {
                                                 <button className='btn btn-dark' value={product.product_id} onClick={this.ok}>Edit</button>
                                                 <br></br>
                                                 <button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></td>
-                                            {/* </div> */}
+                                            
 
 
                                         </tr>
@@ -236,60 +242,76 @@ console.log("postdata");
     render() {
         let sw;
         const formatter = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 });
+
+        // sw = <div>
+        //     <br></br>
+        //     <div class="text-center">
+        //         <button className='btn btn-dark' onClick={this.gotoaddproduct} >Add Product</button>
+        //     </div>
+        //     <table class="table">
+        //         <thead>
+        //             <tr>
+        //                 <th scope="col">No</th>
+        //                 <th scope="col">Product Image</th>
+        //                 <th scope="col">Product Name</th>
+        //                 <th scope="col">Product Price</th>
+        //                 <th scope="col">Buttons</th>
+        //             </tr>
+        //         </thead>
+        //         <tbody>
+        //             {
+        //                 this.state.products.map(
+        //                     (product, i) => (
+        //                         <tr>
+        //                             <th scope="row">{i+1}</th>
+        //                             <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
+        //                             <td> <h4 className='text-capitalize'>{product.product_name}</h4></td>
+        //                             <td><p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p></td>
+        //                             <td>
+        //                                 <button className='btn btn-dark' value={product.product_id} product_id={product.product_id} onClick={this.gotoeditproduct}>Edit</button>
+        //                                 <br></br>
+        //                                 <button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></td>
+        //                         </tr>
+        //                     )
+        //                 )
+        //             }
+        //         </tbody>
+        //     </table>
+        // </div>;
+
         sw = <div>
-
-            {/* <h1> Products List: </h1> */}
-            <br></br>
-            <div class="text-center">
-                <button className='btn btn-dark' onClick={this.gotoaddproduct} >Add Product</button>
-            </div>
-            {/* 
-            <div className='row'>
-                { */}
-            <table class="table">
-
-                <thead>
-                    <tr>
-                        <th scope="col">No</th>
-                        <th scope="col">Product Image</th>
-                        <th scope="col">Product Name</th>
-                        <th scope="col">Product Price</th>
-                        <th scope="col">Buttons</th>
-                    </tr>
-                </thead>
-                <tbody>
-
+                <div className='prdbtn' >
+                    <button className='btn col-md-2' onClick={this.gotoaddproduct}><FaPlus /> Add Product</button>
+                </div>
+                <Row xs={1} md={5} className="g-2 p-2">
                     {
                         this.state.products.map(
                             (product, i) => (
-
-                                <tr>
-                                    {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
-                                    <th scope="row">{i+1}</th>
-
-                                    <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
-                                    <td> <h4 className='text-capitalize'>{product.product_name}</h4></td>
-                                    <td><p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p></td>
-                                    <td>
-                                        <button className='btn btn-dark' value={product.product_id} product_id={product.product_id} onClick={this.gotoeditproduct}>Edit</button>
-                                        <br></br>
-                                        <button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></td>
-                                    {/* </div> */}
-
-
-                                </tr>
-
+                                <Col>
+                                    <Card className='text-center'>
+                                        <div className='m-2 p-3'>
+                                            <Card.Img variant="top" className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{width:"100%",height:"18rem"}}/>
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Title>{product.product_name}</Card.Title>
+                                            <Card.Text>
+                                                <div>
+                                                    <p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p>
+                                                </div>
+                                                <div className='row text-center'>
+                                                    <div className='col'><button className='btn btn-dark' value={product.product_id} product_id={product.product_id} onClick={this.gotoeditproduct}>Edit</button></div>
+                                                    <div className='col'><button className='btn btn-dark' value={product.product_id} onClick={this.deleteProduct}>Delete</button></div>
+                                                </div>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
                             )
                         )
                     }
+                </Row>
 
-
-                </tbody>
-
-
-            </table>
-        </div>;
-
+            </div>
 
         return (sw);
     }

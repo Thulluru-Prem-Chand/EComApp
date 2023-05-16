@@ -20,7 +20,7 @@ import Search from './components/Search';
 import Layout from "./components/Layout";
 import Cart from "./components/Cart";
 import ProductDescription from "./components/ProductDescription";
-import NoPage from "./components/NoPage";
+import Welcome from "./components/Welcome";
 import Login from "./components/Login";
 import Logout from "./components/Logout";
 import Footer from "./components/Footer";
@@ -28,6 +28,7 @@ import Product from "./components/Product";
 import Signup from "./components/Signup";
 import Report from "./components/Report";
 import EditProduct from "./components/EditProduct";
+import Ordpage from "./components/Ordpage";
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import $ from 'jquery';
@@ -52,9 +53,9 @@ root.render(
           <Route path="search" element={<Search />} />
           <Route path="cart" element={<Cart />} />
           <Route path="report" element={<Report />} />
+          <Route path="Ordpage" element={<Ordpage />} />
           <Route path="product_description" element={<ProductDescription />} />
-          <Route path="*" element={<NoPage />} />
-          <Route path="eg" element={<NavScrollExample/>} />
+          <Route path="" element={<Welcome />} />
         </Route>
       </Routes>
       <Footer />

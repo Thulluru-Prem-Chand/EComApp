@@ -4,6 +4,10 @@ import ReactDOM from 'react-dom/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button } from 'bootstrap';
 
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
 class Cart extends React.Component {
     constructor(props) {
         // It will call constructor method in Parent Class
@@ -193,9 +197,6 @@ this.showCart();
                 order_details: this.state.order_details,
                 total_payable:this.state.total,
                 // date:this.state.date
-
-                
-
             })
         };
 
@@ -270,58 +271,77 @@ this.showCart();
     render() {
         let sw;
         const formatter = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 });
-        sw = <div>
+        sw = <div className='p-2'>
 
-            {/* <h1> Products List: </h1> */}
-            <br></br>
-            <div className='row'>
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4">
-                    <div className="input-group">
-                        <div className="form-outline">
-                            {/* <input value={this.state.deleteproduct} onChange={this.updatedeleteProduct} type="search" id="form1" className="form-control" /> */}
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div className='row'>
-                {
+            <div className='row p-2'>
+                {/* {
                     this.state.products.map(
                         (product, i) => (
-                            <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}>
-                                <img className="img-thumbnail" src={product.product_image} style={{ height: "150px", width: "150px" }} />
-                                <h4 className='text-capitalize'>{product.product_name}</h4>
-                                <h6>Rs. {formatter.format(product.final_price)} /-</h6>
-                                <button className='btn btn-dark' product_id={product.product_id} onClick={this.addcart}  > + </button>
-                                <span> {product.count} </span>
-                                <button className='btn btn-dark' product_id={product.product_id} onClick={this.deletecart} > - </button>
-                                <br></br>
-                                <div>
-                                    <button className='btn btn-dark' value={product.product_id} onClick={this.deleteproduct}>Delete</button>
-                                </div>
-
+                            // <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}>
+                            //     <img className="img-thumbnail" src={product.product_image} style={{ height: "150px", width: "150px" }} />
+                            //     <h4 className='text-capitalize'>{product.product_name}</h4>
+                            //     <h6>Rs. {formatter.format(product.final_price)} /-</h6>
+                            //     <button className='btn btn-dark' product_id={product.product_id} onClick={this.addcart}  > + </button>
+                            //     <span> {product.count} </span>
+                            //     <button className='btn btn-dark' product_id={product.product_id} onClick={this.deletecart} > - </button>
+                            //     <br></br>
+                            //     <div>
+                            //         <button className='btn btn-dark' value={product.product_id} onClick={this.deleteproduct}>Delete</button>
+                            //     </div>
+                            // </div>
+                            <div>
 
                             </div>
 
                         )
                     )
-                }
+                } */}
+
+                <Row xs={1} md={5} className="g-2 p-2">
+                    {
+                        this.state.products.map(
+                            (product, i) => (
+                                <Col>
+                                    <Card className='text-center'>
+                                        <div className='m-2 p-3'>
+                                            <Card.Img variant="top" className="img-thumbnail" src={product.product_image} style={{width:"100%",height:"18rem"}}/>
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Title>{product.product_name}</Card.Title>
+                                            <Card.Text>
+                                                <h6>Rs. {formatter.format(product.final_price)} /-</h6>
+                                                <div className='row'>
+                                                    <div className='col'>
+                                                        <button className='btn btn-dark' product_id={product.product_id} onClick={this.deletecart} > - </button>
+                                                        <span> {product.count} </span>
+                                                        <button className='btn btn-dark' product_id={product.product_id} onClick={this.addcart}  > + </button>
+                                                    </div>
+                                                    <div className='col'>
+                                                        <button className='btn btn-dark' value={product.product_id} onClick={this.deleteproduct}>Delete</button>
+                                                    </div>
+                                                </div>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
+                            )
+                        )
+                    }
+                </Row>
             </div>
-            <p>Total items : {this.state.totalItems}</p>
-            <p>Total amount: Rs  {formatter.format(this.state.total)} /-</p>
-
-            <br></br>
-            <button className='btn btn-dark' onClick={this.placeorder}>Place Order</button>
-            <br>
-            </br>
-            <br></br>
-            <br></br>
-            {/* <span>{product.items.reduce((accum,item) => accum + item.quantity, 0)}</span> */}
+            
+            <div className='row placepage p-2 '>
+                <div className="col-md-4 card">
+                    <div className="mb-3 mt-3">
+                        <p>Total items : {this.state.totalItems}</p>
+                        <p>Total amount: Rs  {formatter.format(this.state.total)} /-</p>
+                    </div>
+                    <div className='placebtn' >
+                        <button className='btn col-md-2' onClick={this.placeorder} style={{width: "150px" }}>Place Order</button>
+                    </div>
+                </div> 
+            </div>
         </div>;
-
-
         return (sw);
     }
 }

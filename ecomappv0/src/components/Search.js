@@ -3,6 +3,17 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import Card from 'react-bootstrap/Card';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Form from 'react-bootstrap/Form';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+
 class Search extends React.Component {
     constructor(props) {
         // It will call constructor method in Parent Class
@@ -146,68 +157,85 @@ class Search extends React.Component {
 
     }
 
+    
+
     render() {
+
+        const handleClick = () => {
+            console.log("Function 1 called");
+          };
+        
+          const handleOtherClick = () => {
+            console.log("Function 2 called");
+          };
+        
+          const handleBothClicks = () => {
+            handleClick();
+            handleOtherClick();
+          };
+
         let sw;
         const formatter = new Intl.NumberFormat('en-IN', { maximumSignificantDigits: 3 });
         sw = <div>
+            <div className='row srch'>
+                {/* <div className="row">
+                    <input value={this.state.searchProduct} onChange={this.updateSearchProduct} type="search" id="form1" className="form-control" />
+                    <button onClick={this.searchProduct} type="button" className="btn btn-primary">
+                        <i className="fas fa-search"></i>
+                    </button>
+                </div> */}
 
-            {/* <h1> Products List: </h1> */}
-            <br></br>
-            <div className='row'>
-
-                <div className="col-lg-4"></div>
-                <div className="col-lg-4">
-                    <div className="input-group">
-                        <div className="form-outline">
-                            <input value={this.state.searchProduct} onChange={this.updateSearchProduct} type="search" id="form1" className="form-control" />
-                        </div>
-                        <button onClick={this.searchProduct} type="button" className="btn btn-primary">
-                            <i className="fas fa-search"></i>
-                        </button>
-                    </div>
-                </div>
+                <Form className="d-flex col-md-4">
+                    <Form.Control
+                    value={this.state.searchProduct}
+                    onChange={this.updateSearchProduct}
+                    type="search"
+                    placeholder="Search"
+                    />
+                    <Button onClick={this.searchProduct} type="button" className="btn"><i className="fas fa-search"></i></Button>
+                </Form>
+                
             </div>
 
-            <div className='row'>
-                <table class="table">
+            <div className='row p-2'>
+                {/* {
+                    this.state.products.map(
+                        (product, i) => (
+                                <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} />
+                                <h4 className='text-capitalize'>{product.product_name}</h4>
+                                <p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p>
+                                <button className='btn btn-dark' value={product.product_id} onClick={this.addcart}>Add to cart</button>
+                        )
+                    )
+                } */}
 
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">Product Image</th>
-                            <th scope="col">Product Name</th>
-                            <th scope="col">Product Price</th>
-                            <th scope="col">Add to cart</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-
-                        {
-                            this.state.products.map(
-                                (product, i) => (
-
-                                    <tr>
-                                        {/* <div className="col-lg-2 border p-3 bg-white " style={{ marginLeft: "20px", marginTop: "20px" }}> */}
-                                        <th scope="row">{i+1}</th>
-
-                                        <td> <img className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{ height: "150px", width: "150px" }} /></td>
-                                        <td> <h4 className='text-capitalize'>{product.product_name}</h4></td>
-                                        <td><p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p></td>
-                                        <td><button className='btn btn-dark' value={product.product_id} onClick={this.addcart}>Add to cart</button></td>
-                                        {/* </div> */}
-
-
-                                    </tr>
-
-                                )
+                <Row xs={1} md={5} className="g-2 p-2">
+                    {
+                        this.state.products.map(
+                            (product, i) => (
+                                <Col>
+                                    <Card className='text-center'>
+                                        <div className='m-2 p-3'>
+                                            <Card.Img variant="top" className="img-thumbnail" onClick={this.gotoproductDescription} product_id={product.product_id} src={product.product_image} style={{width:"100%",height:"18rem"}}/>
+                                        </div>
+                                        <Card.Body>
+                                            <Card.Title>{product.product_name}</Card.Title>
+                                            <Card.Text>
+                                                <div>
+                                                    <p>Rs. {formatter.format(product.final_price)} /- <del>Rs.{formatter.format(product.product_price)}/-</del> {product.discount}%</p>
+                                                </div>
+                                                <div className='row text-center'>
+                                                    <div className='col'><button className='btn btn-dark' value={product.product_id} onClick={this.addcart}>Add to cart</button></div>
+                                                </div>
+                                            </Card.Text>
+                                        </Card.Body>
+                                    </Card>
+                                </Col>
                             )
-                        }
+                        )
+                    }
+                </Row>
 
-
-                    </tbody>
-
-
-                </table>
 
             </div>
 
